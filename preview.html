@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vectora — Digital Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #111128;
+            --bg-card: rgba(255,255,255,0.04);
+            --bg-card-hover: rgba(255,255,255,0.08);
+            --glass-bg: rgba(255,255,255,0.06);
+            --glass-border: rgba(255,255,255,0.1);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255,255,255,0.7);
+            --text-muted: rgba(255,255,255,0.4);
+            --accent-1: #6C63FF;
+            --accent-2: #FF6B9D;
+            --accent-3: #00B4D8;
+            --gradient: linear-gradient(135deg, #6C63FF, #FF6B9D);
+            --font-primary: 'Space Grotesk', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --border-radius: 20px;
+            --border-radius-sm: 12px;
+            --transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        [data-theme="light"] {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(0,0,0,0.02);
+            --bg-card-hover: rgba(0,0,0,0.05);
+            --glass-bg: rgba(255,255,255,0.7);
+            --glass-border: rgba(255,255,255,0.8);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            --text-primary: #1a1a2e;
+            --text-secondary: rgba(26,26,46,0.7);
+            --text-muted: rgba(26,26,46,0.4);
+        }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;scroll-padding-top:80px}
+        body{font-family:var(--font-secondary);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+        .cursor-glow{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(108,99,255,0.08) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:transform 0.1s ease}
+        .bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden;pointer-events:none}
+        .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.3;animation:blobFloat 20s ease-in-out infinite}
+        .blob-1{width:600px;height:600px;background:var(--accent-1);top:-200px;left:-100px}
+        .blob-2{width:500px;height:500px;background:var(--accent-2);top:50%;right:-150px;animation-delay:-5s}
+        .blob-3{width:400px;height:400px;background:var(--accent-3);bottom:-100px;left:30%;animation-delay:-10s}
+        .blob-4{width:350px;height:350px;background:#A29BFE;top:40%;left:20%;animation-delay:-15s}
+        .blob-5{width:300px;height:300px;background:#FF9FF3;top:70%;right:20%;animation-delay:-8s}
+        @keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(50px,-50px) scale(1.1)}50%{transform:translate(-30px,30px) scale(.95)}75%{transform:translate(40px,40px) scale(1.05)}}
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        .glass-card{background:var(--glass-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:var(--border-radius);box-shadow:var(--glass-shadow);transition:var(--transition)}
+        .glass-card:hover{background:var(--bg-card-hover);border-color:rgba(108,99,255,0.3);box-shadow:0 8px 40px rgba(108,99,255,0.1)}
+        .gradient-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:50px;font-family:var(--font-primary);font-weight:600;font-size:1rem;text-decoration:none;cursor:pointer;border:none;transition:var(--transition);position:relative;overflow:hidden}
+        .btn-primary{background:var(--gradient);color:#fff;box-shadow:0 4px 20px rgba(108,99,255,0.4)}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(108,99,255,0.6)}
+        .btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s}
+        .btn-primary:hover::after{left:100%}
+        .btn-glass{background:var(--glass-bg);color:var(--text-primary);border:1px solid var(--glass-border);backdrop-filter:blur(10px)}
+        .btn-glass:hover{background:var(--bg-card-hover);border-color:var(--accent-1);transform:translateY(-3px)}
+        .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:var(--transition)}
+        .navbar.scrolled{background:rgba(10,10,26,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:10px 0}
+        .nav-container{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+        .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text-primary);font-family:var(--font-primary);font-size:1.5rem;font-weight:700}
+        .nav-links{display:flex;align-items:center;gap:8px}
+        .nav-link{padding:8px 16px;border-radius:50px;text-decoration:none;color:var(--text-secondary);font-family:var(--font-secondary);font-size:.9rem;font-weight:500;transition:var(--transition)}
+        .nav-link:hover,.nav-link.active{color:var(--text-primary);background:var(--glass-bg)}
+        .nav-actions{display:flex;align-items:center;gap:12px}
+        .theme-toggle{width:42px;height:42px;border-radius:50%;border:1px solid var(--glass-border);background:var(--glass-bg);color:var(--text-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:var(--transition);backdrop-filter:blur(10px)}
+        .nav-cta{padding:10px 24px;border-radius:50px;background:var(--gradient);color:#fff;text-decoration:none;font-family:var(--font-primary);font-weight:600;font-size:.9rem;transition:var(--transition)}
+        .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:5px}
+        .hamburger span{width:25px;height:2px;background:var(--text-primary);border-radius:2px;transition:var(--transition)}
+        .hero{min-height:100vh;display:flex;align-items:center;padding:120px 24px 60px;position:relative;z-index:1;max-width:1200px;margin:0 auto;gap:40px}
+        .hero-content{flex:1;max-width:650px}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:50px;font-size:.85rem;font-weight:500;margin-bottom:28px}
+        .badge-dot{width:8px;height:8px;border-radius:50%;background:#00E676;animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+        .hero-title{font-family:var(--font-primary);font-size:clamp(2.8rem,6vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:24px;letter-spacing:-.02em}
+        .hero-subtitle{font-size:1.15rem;color:var(--text-secondary);line-height:1.8;margin-bottom:36px;max-width:520px}
+        .hero-buttons{display:flex;gap:16px;margin-bottom:50px;flex-wrap:wrap}
+        .hero-stats{display:flex;gap:20px;flex-wrap:wrap}
+        .stat-item{padding:20px 28px;text-align:center;border-radius:var(--border-radius)}
+        .stat-number{font-family:var(--font-primary);font-size:2.2rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .stat-label{display:block;font-size:.8rem;color:var(--text-muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+        .hero-visual{flex:1;display:flex;justify-content:center;align-items:center}
+        .orbit-container{position:relative;width:400px;height:400px}
+        .orbit{position:absolute;border:1px dashed rgba(108,99,255,0.2);border-radius:50%;animation:orbitSpin linear infinite}
+        .orbit-1{width:100%;height:100%;top:0;left:0;animation-duration:30s}
+        .orbit-2{width:75%;height:75%;top:12.5%;left:12.5%;animation-duration:24s;animation-direction:reverse}
+        .orbit-3{width:55%;height:55%;top:22.5%;left:22.5%;animation-duration:18s}
+        .orbit-4{width:35%;height:35%;top:32.5%;left:32.5%;animation-duration:12s;animation-direction:reverse}
+        .orbit-5{width:90%;height:90%;top:5%;left:5%;animation-duration:35s}
+        @keyframes orbitSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+        .orbit-icon{position:absolute;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:14px;font-size:1.1rem}
+        .orbit-1 .orbit-icon{top:0;left:50%;transform:translate(-50%,-50%)}
+        .orbit-2 .orbit-icon{bottom:0;left:0;transform:translate(-50%,50%)}
+        .orbit-3 .orbit-icon{top:50%;right:0;transform:translate(50%,-50%)}
+        .orbit-4 .orbit-icon{bottom:0;right:0;transform:translate(50%,50%)}
+        .orbit-5 .orbit-icon{top:0;right:20%}
+        .orbit-center{position:absolute;width:90px;height:90px;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;font-family:var(--font-primary);font-size:2.2rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-radius:50%}
+        .pulse-ring{position:absolute;width:100%;height:100%;border-radius:50%;border:2px solid rgba(108,99,255,0.3);animation:pulseRing 3s ease-in-out infinite}
+        @keyframes pulseRing{0%{transform:scale(1);opacity:1}100%{transform:scale(1.8);opacity:0}}
+        .marquee-section{padding:20px 0;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);overflow:hidden;position:relative;z-index:1}
+        .marquee-track{overflow:hidden}
+        .marquee-content{display:flex;gap:60px;animation:marquee 30s linear infinite;width:max-content}
+        .marquee-content span{font-family:var(--font-primary);font-size:1.1rem;font-weight:600;color:var(--text-muted);white-space:nowrap;transition:color .3s}
+        .marquee-content span:hover{color:var(--text-primary)}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        .section-header{text-align:center;margin-bottom:60px}
+        .section-tag{display:inline-block;padding:6px 20px;border-radius:50px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+        .section-title{font-family:var(--font-primary);font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:16px}
+        .section-subtitle{font-size:1.1rem;color:var(--text-secondary);max-width:500px;margin:0 auto}
+        .about{padding:120px 0;position:relative;z-index:1}
+        .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:50px}
+        .about-card{padding:36px 28px;text-align:center}
+        .about-icon{width:64px;height:64px;border-radius:18px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;margin:0 auto 20px}
+        .about-card h3{font-family:var(--font-primary);font-size:1.3rem;margin-bottom:12px}
+        .about-card p{color:var(--text-secondary);font-size:.95rem;line-height:1.7}
+        .about-features{display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+        .feature-item{display:flex;align-items:center;gap:10px}
+        .feature-check{width:28px;height:28px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff}
+        .feature-item span{font-weight:500;font-size:.95rem}
+        .services{padding:120px 0;position:relative;z-index:1}
+        .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+        .service-card{padding:36px 28px;position:relative;overflow:hidden}
+        .service-icon-wrapper{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+        .service-icon{width:56px;height:56px;border-radius:16px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;transition:var(--transition)}
+        .service-card:hover .service-icon{transform:scale(1.1) rotate(5deg)}
+        .service-number{font-family:var(--font-primary);font-size:3rem;font-weight:800;color:var(--glass-border);line-height:1}
+        .service-card h3{font-family:var(--font-primary);font-size:1.25rem;margin-bottom:12px}
+        .service-card>p{color:var(--text-secondary);font-size:.95rem;margin-bottom:20px;line-height:1.7}
+        .service-features{list-style:none;margin-bottom:20px}
+        .service-features li{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:.9rem;color:var(--text-secondary)}
+        .service-features li i{color:var(--accent-1);font-size:.75rem}
+        .service-price{font-family:var(--font-primary);font-weight:700;color:var(--accent-2);font-size:.95rem;padding-top:16px;border-top:1px solid var(--glass-border)}
+        .portfolio{padding:120px 0;position:relative;z-index:1}
+        .portfolio-filters{display:flex;justify-content:center;gap:12px;margin-bottom:40px;flex-wrap:wrap}
+        .filter-btn{padding:10px 24px;border-radius:50px;border:1px solid var(--glass-border);background:var(--glass-bg);color:var(--text-secondary);font-family:var(--font-secondary);font-size:.9rem;font-weight:500;cursor:pointer;transition:var(--transition);backdrop-filter:blur(10px)}
+        .filter-btn:hover,.filter-btn.active{background:var(--gradient);color:#fff;border-color:transparent}
+        .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}
+        .portfolio-card{overflow:hidden;transition:var(--transition)}
+        .portfolio-image{position:relative;height:220px;overflow:hidden}
+        .portfolio-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,0.8)}
+        .portfolio-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,26,0.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--transition)}
+        .portfolio-card:hover .portfolio-overlay{opacity:1}
+        .portfolio-link{width:52px;height:52px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;text-decoration:none;transform:translateY(20px);transition:var(--transition)}
+        .portfolio-card:hover .portfolio-link{transform:translateY(0)}
+        .portfolio-info{padding:24px}
+        .portfolio-category{font-size:.8rem;color:var(--accent-1);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+        .portfolio-info h3{font-family:var(--font-primary);font-size:1.2rem;margin:8px 0}
+        .portfolio-info p{font-size:.9rem;color:var(--text-secondary)}
+        .portfolio-card.hidden{display:none}
+        .process{padding:120px 0;position:relative;z-index:1}
+        .process-timeline{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+        .process-step{padding:36px 28px;text-align:center;width:220px;position:relative}
+        .step-icon{width:64px;height:64px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;margin:0 auto 16px}
+        .process-step h3{font-family:var(--font-primary);font-size:1.1rem;margin-bottom:8px}
+        .process-step p{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
+        .process-connector{color:var(--accent-1);font-size:1.2rem}
+        .testimonials{padding:120px 0;position:relative;z-index:1}
+        .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+        .testimonial-card{padding:36px 28px}
+        .testimonial-stars{color:#FFD700;font-size:.9rem;margin-bottom:16px;display:flex;gap:4px}
+        .testimonial-card p{font-size:1rem;line-height:1.8;color:var(--text-secondary);margin-bottom:24px;font-style:italic}
+        .testimonial-author{display:flex;align-items:center;gap:14px}
+        .author-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem}
+        .testimonial-author strong{display:block;font-family:var(--font-primary)}
+        .testimonial-author span{font-size:.85rem;color:var(--text-muted)}
+        .pricing{padding:120px 0;position:relative;z-index:1}
+        .pricing-toggle{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:50px}
+        .toggle-label{font-size:.95rem;color:var(--text-muted);transition:var(--transition)}
+        .toggle-label.active{color:var(--text-primary);font-weight:600}
+        .save-badge{background:var(--gradient);color:#fff;padding:2px 10px;border-radius:50px;font-size:.75rem;font-weight:600}
+        .toggle-switch{position:relative;width:56px;height:28px}
+        .toggle-switch input{opacity:0;width:0;height:0}
+        .toggle-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:28px;transition:var(--transition)}
+        .toggle-slider::before{content:'';position:absolute;height:22px;width:22px;left:2px;bottom:2px;background:var(--gradient);border-radius:50%;transition:var(--transition)}
+        .toggle-switch input:checked+.toggle-slider::before{transform:translateX(28px)}
+        .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start}
+        .pricing-card{padding:40px 32px;text-align:center;position:relative}
+        .pricing-card.featured{border-color:rgba(108,99,255,0.4);background:rgba(108,99,255,0.08);transform:scale(1.05)}
+        .popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:6px 20px;background:var(--gradient);color:#fff;border-radius:50px;font-size:.8rem;font-weight:600;white-space:nowrap}
+        .pricing-header h3{font-family:var(--font-primary);font-size:1.4rem;margin-bottom:8px}
+        .pricing-header p{font-size:.9rem;color:var(--text-secondary);margin-bottom:24px}
+        .price{display:flex;align-items:flex-start;justify-content:center;gap:4px;margin-bottom:32px}
+        .currency{font-size:1.4rem;font-weight:700;margin-top:8px}
+        .amount{font-family:var(--font-primary);font-size:3.5rem;font-weight:800;line-height:1;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .period{font-size:.95rem;color:var(--text-muted);align-self:flex-end;margin-bottom:6px}
+        .pricing-features{list-style:none;margin-bottom:32px;text-align:left}
+        .pricing-features li{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:.95rem;color:var(--text-secondary)}
+        .pricing-features li i{color:var(--accent-1);font-size:.8rem}
+        .pricing-btn{width:100%;justify-content:center}
+        .faq{padding:120px 0;position:relative;z-index:1}
+        .faq-list{max-width:750px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+        .faq-item{padding:24px 28px;cursor:pointer;overflow:hidden}
+        .faq-question{display:flex;align-items:center;justify-content:space-between;font-family:var(--font-primary);font-weight:600;font-size:1.05rem}
+        .faq-question i{font-size:.9rem;color:var(--accent-1);transition:var(--transition)}
+        .faq-item.active .faq-question i{transform:rotate(180deg)}
+        .faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease}
+        .faq-item.active .faq-answer{max-height:300px;padding-top:16px}
+        .faq-answer p{color:var(--text-secondary);font-size:.95rem;line-height:1.8}
+        .contact{padding:120px 0;position:relative;z-index:1}
+        .contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:start}
+        .contact-info{display:flex;flex-direction:column;gap:20px}
+        .contact-card{padding:24px;display:flex;align-items:center;gap:16px}
+        .contact-icon{width:48px;height:48px;border-radius:14px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;flex-shrink:0}
+        .contact-card h3{font-family:var(--font-primary);font-size:1rem}
+        .contact-card p{font-size:.9rem;color:var(--text-secondary)}
+        .social-links{display:flex;gap:12px}
+        .social-link{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);text-decoration:none;font-size:1rem;transition:var(--transition)}
+        .social-link:hover{color:#fff;background:var(--gradient);border-color:transparent;transform:translateY(-3px)}
+        .contact-form{padding:40px 36px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+        .form-group{position:relative}
+        .form-group.full-width{grid-column:1/-1}
+        .form-group input,.form-group textarea,.form-group select{width:100%;padding:16px 20px;border-radius:var(--border-radius-sm);border:1px solid var(--glass-border);background:var(--glass-bg);color:var(--text-primary);font-family:var(--font-secondary);font-size:.95rem;transition:var(--transition);outline:none;backdrop-filter:blur(10px)}
+        .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent-1);box-shadow:0 0 0 3px rgba(108,99,255,0.1)}
+        .form-group label{position:absolute;top:16px;left:20px;color:var(--text-muted);font-size:.95rem;pointer-events:none;transition:var(--transition)}
+        .form-group input:focus+label,.form-group input:not(:placeholder-shown)+label,.form-group textarea:focus+label,.form-group textarea:not(:placeholder-shown)+label{top:-8px;left:16px;font-size:.75rem;background:var(--bg-primary);padding:0 6px;color:var(--accent-1)}
+        .form-group select{appearance:none;cursor:pointer;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236C63FF' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+        .form-group select option{background:var(--bg-secondary);color:var(--text-primary)}
+        .form-group textarea{resize:vertical;min-height:100px}
+        .submit-btn{grid-column:1/-1;width:100%;justify-content:center;padding:16px;font-size:1.05rem}
+        .footer{padding:80px 0 30px;border-top:1px solid var(--glass-border);position:relative;z-index:1}
+        .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:60px}
+        .footer-brand p{color:var(--text-secondary);font-size:.95rem;margin-top:16px;max-width:280px}
+        .footer-social{display:flex;gap:12px;margin-top:20px}
+        .footer-social a{width:40px;height:40px;border-radius:50%;border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);text-decoration:none;transition:var(--transition)}
+        .footer-social a:hover{background:var(--gradient);color:#fff;border-color:transparent}
+        .footer-links h4{font-family:var(--font-primary);margin-bottom:20px;font-size:1.05rem}
+        .footer-links ul{list-style:none}
+        .footer-links li{margin-bottom:10px}
+        .footer-links a{color:var(--text-secondary);text-decoration:none;font-size:.9rem;transition:var(--transition)}
+        .footer-links a:hover{color:var(--accent-1)}
+        .footer-bottom{text-align:center;padding-top:30px;border-top:1px solid var(--glass-border);color:var(--text-muted);font-size:.9rem}
+        .back-to-top{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;opacity:0;pointer-events:none;transform:translateY(20px);transition:var(--transition);font-size:1rem;color:var(--text-primary)}
+        .back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+        .whatsapp-float{position:fixed;bottom:90px;right:30px;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#25D366;z-index:999;text-decoration:none;animation:whatsappPulse 2s infinite}
+        .whatsapp-float:hover{transform:scale(1.1);background:rgba(37,211,102,0.15)}
+        @keyframes whatsappPulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,0.3)}50%{box-shadow:0 0 0 12px rgba(37,211,102,0)}}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);padding:16px 28px;background:var(--gradient);color:#fff;border-radius:50px;display:flex;align-items:center;gap:10px;font-weight:500;z-index:10000;transition:transform .4s cubic-bezier(0.68,-0.55,0.265,1.55);box-shadow:0 8px 30px rgba(108,99,255,0.4)}
+        .toast.show{transform:translateX(-50%) translateY(0)}
+        .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+        .reveal.revealed{opacity:1;transform:translateY(0)}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @media(max-width:1024px){.hero{flex-direction:column;text-align:center;padding-top:140px}.hero-subtitle{margin:0 auto 36px}.hero-buttons{justify-content:center}.hero-stats{justify-content:center}.orbit-container{width:300px;height:300px}.footer-grid{grid-template-columns:1fr 1fr}}
+        @media(max-width:768px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(10,10,26,0.95);backdrop-filter:blur(20px);padding:20px;border-bottom:1px solid var(--glass-border);gap:4px}.nav-links.active{display:flex}.hamburger{display:flex}.nav-cta{display:none}.hero-title{font-size:2.5rem}.stat-item{padding:14px 20px}.contact-grid{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr;padding:28px 24px}.process-timeline{flex-direction:column}.process-connector{transform:rotate(90deg)}.pricing-card.featured{transform:scale(1)}.portfolio-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.cursor-glow{display:none}}
+        @media(max-width:480px){.hero-title{font-size:2rem}.hero-buttons{flex-direction:column;align-items:center}.hero-stats{flex-direction:column;align-items:center}.stat-item{width:100%}.about-grid{grid-template-columns:1fr}.services-grid{grid-template-columns:1fr}.testimonials-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+        <div class="blob blob-5"></div>
+    </div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M5 35L20 5L35 35" stroke="url(#lg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 25H28" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
+                        <defs><linearGradient id="lg" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#FF6B9D"/></linearGradient></defs>
+                    </svg>
+                </div>
+                <span>Vectora</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="#testimonials" class="nav-link">Reviews</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <a href="#contact" class="nav-cta">Get Started</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge glass-card"><span class="badge-dot"></span> Available for new projects</div>
+            <h1 class="hero-title">We Build<br><span class="gradient-text">Digital Experiences</span><br>That Matter</h1>
+            <p class="hero-subtitle">Vectora is a full-service digital agency crafting stunning websites, powerful apps, creative designs, and data-driven marketing strategies that transform businesses.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary"><span>Start Your Project</span><i class="fas fa-arrow-right"></i></a>
+                <a href="#portfolio" class="btn btn-glass"><i class="fas fa-play"></i><span>View Our Work</span></a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item glass-card"><span class="stat-number" data-target="150">0</span>+<span class="stat-label">Projects Done</span></div>
+                <div class="stat-item glass-card"><span class="stat-number" data-target="50">0</span>+<span class="stat-label">Happy Clients</span></div>
+                <div class="stat-item glass-card"><span class="stat-number" data-target="5">0</span>+<span class="stat-label">Years Experience</span></div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="orbit-container">
+                <div class="orbit orbit-1"><div class="orbit-icon glass-card"><i class="fas fa-code"></i></div></div>
+                <div class="orbit orbit-2"><div class="orbit-icon glass-card"><i class="fas fa-palette"></i></div></div>
+                <div class="orbit orbit-3"><div class="orbit-icon glass-card"><i class="fas fa-bullhorn"></i></div></div>
+                <div class="orbit orbit-4"><div class="orbit-icon glass-card"><i class="fas fa-mobile-alt"></i></div></div>
+                <div class="orbit orbit-5"><div class="orbit-icon glass-card"><i class="fas fa-chart-line"></i></div></div>
+                <div class="orbit-center glass-card"><div class="pulse-ring"></div><span>V</span></div>
+            </div>
+        </div>
+    </section>
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span>⚡ Digital Marketing</span><span>🎨 Graphic Design</span><span>🌐 Web Development</span><span>📱 App Development</span><span>🎬 Video Editing</span><span>📊 Analytics</span><span>🔍 SEO</span><span>📸 Photography</span><span>🤖 Automation</span><span>💻 Software Dev</span>
+                <span>⚡ Digital Marketing</span><span>🎨 Graphic Design</span><span>🌐 Web Development</span><span>📱 App Development</span><span>🎬 Video Editing</span><span>📊 Analytics</span><span>🔍 SEO</span><span>📸 Photography</span><span>🤖 Automation</span><span>💻 Software Dev</span>
+            </div>
+        </div>
+    </div>
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">About Us</span><h2 class="section-title">We Are <span class="gradient-text">Vectora</span></h2><p class="section-subtitle">Transforming ideas into digital realities since 2020</p></div>
+            <div class="about-grid">
+                <div class="about-card glass-card" data-tilt><div class="about-icon"><i class="fas fa-rocket"></i></div><h3>Our Mission</h3><p>To empower businesses with cutting-edge digital solutions that drive growth, engagement, and lasting success.</p></div>
+                <div class="about-card glass-card" data-tilt><div class="about-icon"><i class="fas fa-eye"></i></div><h3>Our Vision</h3><p>To become the world's most trusted digital partner, known for innovation and quality.</p></div>
+                <div class="about-card glass-card" data-tilt><div class="about-icon"><i class="fas fa-heart"></i></div><h3>Our Values</h3><p>Transparency, creativity, and client-first approach. Your success is our success.</p></div>
+                <div class="about-card glass-card" data-tilt><div class="about-icon"><i class="fas fa-users"></i></div><h3>Our Team</h3><p>A passionate team dedicated to bringing your vision to life with excellence.</p></div>
+            </div>
+            <div class="about-features">
+                <div class="feature-item"><div class="feature-check"><i class="fas fa-check"></i></div><span>24/7 Support</span></div>
+                <div class="feature-item"><div class="feature-check"><i class="fas fa-check"></i></div><span>100% Satisfaction</span></div>
+                <div class="feature-item"><div class="feature-check"><i class="fas fa-check"></i></div><span>Fast Delivery</span></div>
+                <div class="feature-item"><div class="feature-check"><i class="fas fa-check"></i></div><span>Modern Tech Stack</span></div>
+            </div>
+        </div>
+    </section>
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">What We Do</span><h2 class="section-title">Our <span class="gradient-text">Services</span></h2><p class="section-subtitle">Complete digital solutions under one roof</p></div>
+            <div class="services-grid">
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-bullhorn"></i></div><div class="service-number">01</div></div><h3>Digital Marketing</h3><p>Strategic campaigns across Google, Facebook, Instagram & more to maximize your ROI.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> SEO Optimization</li><li><i class="fas fa-check-circle"></i> PPC Campaigns</li><li><i class="fas fa-check-circle"></i> Email Marketing</li><li><i class="fas fa-check-circle"></i> Analytics & Reporting</li></ul><div class="service-price">Starting from $299/mo</div></div>
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-share-alt"></i></div><div class="service-number">02</div></div><h3>Social Media Management</h3><p>Build your brand presence across all platforms with content creation and community management.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> Content Strategy</li><li><i class="fas fa-check-circle"></i> Post Scheduling</li><li><i class="fas fa-check-circle"></i> Community Growth</li><li><i class="fas fa-check-circle"></i> Influencer Collabs</li></ul><div class="service-price">Starting from $199/mo</div></div>
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-globe"></i></div><div class="service-number">03</div></div><h3>Web Development</h3><p>Custom websites that look stunning and perform flawlessly from landing pages to web apps.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> Responsive Design</li><li><i class="fas fa-check-circle"></i> E-Commerce</li><li><i class="fas fa-check-circle"></i> CMS Integration</li><li><i class="fas fa-check-circle"></i> Performance Optimization</li></ul><div class="service-price">Starting from $499</div></div>
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-palette"></i></div><div class="service-number">04</div></div><h3>Graphic Design</h3><p>Eye-catching visuals that tell your brand story — logos, brand kits, social media graphics.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> Logo & Branding</li><li><i class="fas fa-check-circle"></i> UI/UX Design</li><li><i class="fas fa-check-circle"></i> Print Design</li><li><i class="fas fa-check-circle"></i> Motion Graphics</li></ul><div class="service-price">Starting from $149</div></div>
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-code"></i></div><div class="service-number">05</div></div><h3>Software Development</h3><p>Custom software solutions from desktop apps to enterprise systems.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> Mobile Apps</li><li><i class="fas fa-check-circle"></i> Desktop Applications</li><li><i class="fas fa-check-circle"></i> API Development</li><li><i class="fas fa-check-circle"></i> Cloud Solutions</li></ul><div class="service-price">Starting from $999</div></div>
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-bug"></i></div><div class="service-number">06</div></div><h3>Quality Testing</h3><p>Ensure your products are bug-free and perform perfectly across all platforms.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> Manual Testing</li><li><i class="fas fa-check-circle"></i> Automated Testing</li><li><i class="fas fa-check-circle"></i> Performance Testing</li><li><i class="fas fa-check-circle"></i> Security Audits</li></ul><div class="service-price">Starting from $249</div></div>
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-film"></i></div><div class="service-number">07</div></div><h3>Video Editing</h3><p>Professional video editing — social media reels, YouTube content, and more.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> Reels & Shorts</li><li><i class="fas fa-check-circle"></i> YouTube Videos</li><li><i class="fas fa-check-circle"></i> Ad Commercials</li><li><i class="fas fa-check-circle"></i> Animation</li></ul><div class="service-price">Starting from $99/video</div></div>
+                <div class="service-card glass-card" data-tilt><div class="service-icon-wrapper"><div class="service-icon"><i class="fas fa-robot"></i></div><div class="service-number">08</div></div><h3>Automation & AI</h3><p>Smart automation to streamline workflows and reduce manual effort.</p><ul class="service-features"><li><i class="fas fa-check-circle"></i> Workflow Automation</li><li><i class="fas fa-check-circle"></i> Chatbots & AI</li><li><i class="fas fa-check-circle"></i> Data Integration</li><li><i class="fas fa-check-circle"></i> Process Optimization</li></ul><div class="service-price">Starting from $399</div></div>
+            </div>
+        </div>
+    </section>
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">Our Work</span><h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2><p class="section-subtitle">A showcase of our latest and greatest work</p></div>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="app">Apps</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+                <button class="filter-btn" data-filter="marketing">Marketing</button>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-card glass-card" data-category="app" data-tilt><div class="portfolio-image"><div class="portfolio-placeholder" style="background:linear-gradient(135deg,#6C63FF,#FF6B9D)"><i class="fas fa-comments"></i></div><div class="portfolio-overlay"><a href="https://chatswif.netlify.app" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a></div></div><div class="portfolio-info"><span class="portfolio-category">App Development</span><h3>ChatSwift</h3><p>A modern real-time chat application.</p></div></div>
+                <div class="portfolio-card glass-card" data-category="web" data-tilt><div class="portfolio-image"><div class="portfolio-placeholder" style="background:linear-gradient(135deg,#00B4D8,#0077B6)"><i class="fas fa-user"></i></div><div class="portfolio-overlay"><a href="https://alkvers.netlify.app" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a></div></div><div class="portfolio-info"><span class="portfolio-category">Web Design</span><h3>Alkvers Portfolio</h3><p>A stunning personal portfolio showcasing creative work.</p></div></div>
+                <div class="portfolio-card glass-card" data-category="design" data-tilt><div class="portfolio-image"><div class="portfolio-placeholder" style="background:linear-gradient(135deg,#FF6B9D,#C44569)"><i class="fas fa-birthday-cake"></i></div><div class="portfolio-overlay"><a href="https://github.com/alkvers" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a></div></div><div class="portfolio-info"><span class="portfolio-category">Special Design</span><h3>Birthday Website</h3><p>Beautiful animated birthday celebration website.</p></div></div>
+                <div class="portfolio-card glass-card" data-category="design" data-tilt><div class="portfolio-image"><div class="portfolio-placeholder" style="background:linear-gradient(135deg,#00B894,#00A86B)"><i class="fas fa-moon"></i></div><div class="portfolio-overlay"><a href="https://github.com/alkvers" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a></div></div><div class="portfolio-info"><span class="portfolio-category">Special Design</span><h3>Eid Website</h3><p>Elegant Eid celebration website with Islamic design.</p></div></div>
+                <div class="portfolio-card glass-card" data-category="web" data-tilt><div class="portfolio-image"><div class="portfolio-placeholder" style="background:linear-gradient(135deg,#A29BFE,#6C5CE7)"><i class="fas fa-v"></i></div><div class="portfolio-overlay"><a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a></div></div><div class="portfolio-info"><span class="portfolio-category">Web Design</span><h3>Vectora Agency</h3><p>Our own agency website — the one you're looking at!</p></div></div>
+                <div class="portfolio-card glass-card" data-category="marketing" data-tilt><div class="portfolio-image"><div class="portfolio-placeholder" style="background:linear-gradient(135deg,#FDCB6E,#F39C12)"><i class="fas fa-chart-pie"></i></div><div class="portfolio-overlay"><a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a></div></div><div class="portfolio-info"><span class="portfolio-category">Digital Marketing</span><h3>Social Campaign</h3><p>Multi-platform campaign that increased engagement by 300%.</p></div></div>
+            </div>
+        </div>
+    </section>
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">How We Work</span><h2 class="section-title">Our <span class="gradient-text">Process</span></h2><p class="section-subtitle">A proven workflow that delivers results every time</p></div>
+            <div class="process-timeline">
+                <div class="process-step glass-card"><div class="step-icon"><i class="fas fa-comments"></i></div><h3>Discovery</h3><p>We listen, research, and understand your goals.</p></div>
+                <div class="process-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="process-step glass-card"><div class="step-icon"><i class="fas fa-pencil-ruler"></i></div><h3>Strategy & Design</h3><p>We create wireframes, mockups, and strategy.</p></div>
+                <div class="process-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="process-step glass-card"><div class="step-icon"><i class="fas fa-code"></i></div><h3>Development</h3><p>Our engineers bring designs to life with code.</p></div>
+                <div class="process-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="process-step glass-card"><div class="step-icon"><i class="fas fa-rocket"></i></div><h3>Launch & Grow</h3><p>We deploy, monitor, and optimize continuously.</p></div>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">Testimonials</span><h2 class="section-title">What Clients <span class="gradient-text">Say</span></h2><p class="section-subtitle">Real feedback from our satisfied customers</p></div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass-card" data-tilt><div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Vectora transformed our online presence completely. Their work increased our leads by 400% in just 3 months!"</p><div class="testimonial-author"><div class="author-avatar" style="background:linear-gradient(135deg,#6C63FF,#FF6B9D)">AH</div><div><strong>Ahmad Hassan</strong><span>CEO, TechStart</span></div></div></div>
+                <div class="testimonial-card glass-card" data-tilt><div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"The app they built is incredible — fast, beautiful, and our users absolutely love it. Best investment!"</p><div class="testimonial-author"><div class="author-avatar" style="background:linear-gradient(135deg,#00B4D8,#0077B6)">SF</div><div><strong>Sara Fatima</strong><span>Founder, WellnessHub</span></div></div></div>
+                <div class="testimonial-card glass-card" data-tilt><div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"From design to social media, Vectora handles everything perfectly. They feel like part of our team."</p><div class="testimonial-author"><div class="author-avatar" style="background:linear-gradient(135deg,#FF6B9D,#C44569)">MK</div><div><strong>Muhammad Khan</strong><span>Marketing Dir., BrandCo</span></div></div></div>
+            </div>
+        </div>
+    </section>
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">Pricing</span><h2 class="section-title">Simple <span class="gradient-text">Pricing</span></h2><p class="section-subtitle">Choose the plan that fits your needs</p></div>
+            <div class="pricing-toggle"><span class="toggle-label active" id="monthlyLabel">Monthly</span><label class="toggle-switch"><input type="checkbox" id="pricingToggle"><span class="toggle-slider"></span></label><span class="toggle-label" id="yearlyLabel">Yearly <span class="save-badge">Save 20%</span></span></div>
+            <div class="pricing-grid">
+                <div class="pricing-card glass-card" data-tilt><div class="pricing-header"><h3>Starter</h3><p>Perfect for small businesses</p><div class="price"><span class="currency">$</span><span class="amount" data-monthly="299" data-yearly="239">299</span><span class="period">/mo</span></div></div><ul class="pricing-features"><li><i class="fas fa-check"></i> Social Media (2 platforms)</li><li><i class="fas fa-check"></i> Basic SEO</li><li><i class="fas fa-check"></i> 5 Graphic Designs/mo</li><li><i class="fas fa-check"></i> Monthly Report</li><li><i class="fas fa-check"></i> Email Support</li></ul><a href="#contact" class="btn btn-glass pricing-btn">Get Started</a></div>
+                <div class="pricing-card glass-card featured" data-tilt><div class="popular-badge">Most Popular</div><div class="pricing-header"><h3>Professional</h3><p>Ideal for growing businesses</p><div class="price"><span class="currency">$</span><span class="amount" data-monthly="699" data-yearly="559">699</span><span class="period">/mo</span></div></div><ul class="pricing-features"><li><i class="fas fa-check"></i> Social Media (5 platforms)</li><li><i class="fas fa-check"></i> Advanced SEO & SEM</li><li><i class="fas fa-check"></i> 15 Graphic Designs/mo</li><li><i class="fas fa-check"></i> Website Landing Page</li><li><i class="fas fa-check"></i> Video Editing (4/mo)</li><li><i class="fas fa-check"></i> Priority Support</li></ul><a href="#contact" class="btn btn-primary pricing-btn">Get Started</a></div>
+                <div class="pricing-card glass-card" data-tilt><div class="pricing-header"><h3>Enterprise</h3><p>Full-service for established businesses</p><div class="price"><span class="currency">$</span><span class="amount" data-monthly="1499" data-yearly="1199">1499</span><span class="period">/mo</span></div></div><ul class="pricing-features"><li><i class="fas fa-check"></i> Unlimited Platforms</li><li><i class="fas fa-check"></i> Full SEO, SEM & Analytics</li><li><i class="fas fa-check"></i> Unlimited Designs</li><li><i class="fas fa-check"></i> Custom Web/App Dev</li><li><i class="fas fa-check"></i> Unlimited Video Editing</li><li><i class="fas fa-check"></i> 24/7 Dedicated Support</li></ul><a href="#contact" class="btn btn-glass pricing-btn">Contact Us</a></div>
+            </div>
+        </div>
+    </section>
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">FAQ</span><h2 class="section-title">Frequently <span class="gradient-text">Asked</span></h2><p class="section-subtitle">Got questions? We've got answers</p></div>
+            <div class="faq-list">
+                <div class="faq-item glass-card"><div class="faq-question"><span>What services does Vectora offer?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>We offer digital marketing, social media, web development, graphic design, software dev, testing, video editing, and automation. Your one-stop digital shop!</p></div></div>
+                <div class="faq-item glass-card"><div class="faq-question"><span>How quickly can you start on my project?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Typically within 48 hours! Simple projects complete in 1-2 weeks, larger ones have customized timelines.</p></div></div>
+                <div class="faq-item glass-card"><div class="faq-question"><span>Do you work with international clients?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Absolutely! We work with clients worldwide across all time zones.</p></div></div>
+                <div class="faq-item glass-card"><div class="faq-question"><span>What is your payment structure?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>50% upfront, 50% upon completion. Monthly services billed at the start. We accept bank transfers, PayPal, and more.</p></div></div>
+                <div class="faq-item glass-card"><div class="faq-question"><span>Can I customize a plan?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Of course! Mix and match services or let us create a completely custom package for you.</p></div></div>
+            </div>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header"><span class="section-tag glass-card">Get In Touch</span><h2 class="section-title">Let's <span class="gradient-text">Talk</span></h2><p class="section-subtitle">Ready to take your business to the next level?</p></div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card glass-card"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><h3>Email Us</h3><p>hello@vectora.agency</p></div></div>
+                    <div class="contact-card glass-card"><div class="contact-icon"><i class="fas fa-phone"></i></div><div><h3>Call Us</h3><p>+92 300 1234567</p></div></div>
+                    <div class="contact-card glass-card"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div><h3>Visit Us</h3><p>Available Worldwide</p></div></div>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/vectora" target="_blank" class="social-link glass-card"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/vectoraagency" target="_blank" class="social-link glass-card"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/vectoraagency" target="_blank" class="social-link glass-card"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/company/vectoraagency" target="_blank" class="social-link glass-card"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form glass-card" id="contactForm">
+                    <div class="form-group"><input type="text" id="name" placeholder=" " required><label for="name">Your Name</label></div>
+                    <div class="form-group"><input type="email" id="email" placeholder=" " required><label for="email">Your Email</label></div>
+                    <div class="form-group"><select id="service" required><option value="" disabled selected>Select a Service</option><option>Digital Marketing</option><option>Social Media Management</option><option>Web Development</option><option>Graphic Design</option><option>Software Development</option><option>Quality Testing</option><option>Video Editing</option><option>Automation & AI</option><option>Other</option></select></div>
+                    <div class="form-group"><input type="text" id="budget" placeholder=" "><label for="budget">Your Budget (optional)</label></div>
+                    <div class="form-group full-width"><textarea id="message" rows="4" placeholder=" " required></textarea><label for="message">Tell us about your project</label></div>
+                    <button type="submit" class="btn btn-primary submit-btn"><span>Send Message</span><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo"><div class="logo-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M5 35L20 5L35 35" stroke="url(#lg2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 25H28" stroke="url(#lg2)" stroke-width="3" stroke-linecap="round"/><defs><linearGradient id="lg2" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#FF6B9D"/></linearGradient></defs></svg></div><span>Vectora</span></a>
+                    <p>Building digital experiences that transform businesses and delight users worldwide.</p>
+                    <div class="footer-social"><a href="https://www.facebook.com/vectora" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/vectoraagency" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://x.com/vectoraagency" target="_blank"><i class="fab fa-twitter"></i></a><a href="https://www.linkedin.com/company/vectoraagency" target="_blank"><i class="fab fa-linkedin-in"></i></a></div>
+                </div>
+                <div class="footer-links"><h4>Services</h4><ul><li><a href="#services">Digital Marketing</a></li><li><a href="#services">Social Media</a></li><li><a href="#services">Web Development</a></li><li><a href="#services">Graphic Design</a></li><li><a href="#services">Software Dev</a></li></ul></div>
+                <div class="footer-links"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul></div>
+                <div class="footer-links"><h4>Resources</h4><ul><li><a href="#">Blog</a></li><li><a href="#">Case Studies</a></li><li><a href="#">Documentation</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 Vectora Agency. All rights reserved. Crafted with <i class="fas fa-heart" style="color:#FF6B9D"></i></p></div>
+        </div>
+    </footer>
+    <button class="back-to-top glass-card" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+    <a href="https://wa.me/923001234567" target="_blank" class="whatsapp-float glass-card"><i class="fab fa-whatsapp"></i></a>
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span>Message sent successfully!</span></div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cursorGlow = document.getElementById('cursorGlow');
+        if (cursorGlow) document.addEventListener('mousemove', e => { cursorGlow.style.left = e.clientX + 'px'; cursorGlow.style.top = e.clientY + 'px'; });
+        const navbar = document.getElementById('navbar'), backToTop = document.getElementById('backToTop');
+        function handleScroll() {
+            const s = window.scrollY;
+            navbar.classList.toggle('scrolled', s > 50);
+            if (backToTop) backToTop.classList.toggle('visible', s > 500);
+            document.querySelectorAll('section[id]').forEach(sec => {
+                const t = sec.offsetTop - 120, h = sec.offsetHeight, id = sec.id;
+                if (s >= t && s < t + h) document.querySelectorAll('.nav-link').forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + id); });
+            });
+        }
+        window.addEventListener('scroll', handleScroll); handleScroll();
+        if (backToTop) backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        const hamburger = document.getElementById('hamburger'), navLinksEl = document.getElementById('navLinks');
+        if (hamburger) { hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinksEl.classList.toggle('active'); }); navLinksEl.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { hamburger.classList.remove('active'); navLinksEl.classList.remove('active'); })); }
+        const themeToggle = document.getElementById('themeToggle'), saved = localStorage.getItem('vectora-theme') || 'dark';
+        if (saved === 'light') { document.documentElement.setAttribute('data-theme', 'light'); if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; }
+        if (themeToggle) themeToggle.addEventListener('click', () => { const c = document.documentElement.getAttribute('data-theme'); if (c === 'light') { document.documentElement.removeAttribute('data-theme'); themeToggle.innerHTML = '<i class="fas fa-moon"></i>'; localStorage.setItem('vectora-theme', 'dark'); } else { document.documentElement.setAttribute('data-theme', 'light'); themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; localStorage.setItem('vectora-theme', 'light'); } });
+        function animateCounters() { document.querySelectorAll('.stat-number').forEach(c => { if (c.dataset.animated) return; const t = +c.dataset.target, d = 2000, step = t / (d / 16); let cur = 0; (function u() { cur += step; if (cur < t) { c.textContent = Math.floor(cur); requestAnimationFrame(u); } else { c.textContent = t; c.dataset.animated = 'true'; } })(); }); }
+        const revealEls = document.querySelectorAll('.section-header, .about-card, .service-card, .portfolio-card, .process-step, .testimonial-card, .pricing-card, .faq-item, .contact-card, .contact-form');
+        revealEls.forEach(el => el.classList.add('reveal'));
+        const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); }), { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealEls.forEach(el => obs.observe(el));
+        const statsSec = document.querySelector('.hero-stats');
+        if (statsSec) { const so = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { animateCounters(); so.unobserve(e.target); } }); }, { threshold: 0.5 }); so.observe(statsSec); }
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); const f = btn.dataset.filter; document.querySelectorAll('.portfolio-card').forEach(c => { if (f === 'all' || c.dataset.category === f) { c.classList.remove('hidden'); c.style.animation = 'fadeInUp 0.5s ease forwards'; } else c.classList.add('hidden'); }); }));
+        document.querySelectorAll('.faq-item').forEach(item => item.addEventListener('click', () => { const was = item.classList.contains('active'); document.querySelectorAll('.faq-item').forEach(fi => fi.classList.remove('active')); if (!was) item.classList.add('active'); }));
+        const pt = document.getElementById('pricingToggle'), ml = document.getElementById('monthlyLabel'), yl = document.getElementById('yearlyLabel');
+        if (pt) pt.addEventListener('change', () => { const y = pt.checked; ml.classList.toggle('active', !y); yl.classList.toggle('active', y); document.querySelectorAll('.amount').forEach(a => { const m = a.dataset.monthly, yr = a.dataset.yearly; a.style.transition = 'transform .3s ease'; a.style.transform = 'translateY(-10px)'; a.style.opacity = '0'; setTimeout(() => { a.textContent = y ? yr : m; a.style.transform = 'translateY(10px)'; setTimeout(() => { a.style.transform = 'translateY(0)'; a.style.opacity = '1'; }, 50); }, 200); }); });
+        const cf = document.getElementById('contactForm'), toast = document.getElementById('toast');
+        if (cf) cf.addEventListener('submit', e => { e.preventDefault(); const sb = cf.querySelector('.submit-btn'); sb.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>'; sb.disabled = true; setTimeout(() => { if (toast) { toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 4000); } cf.reset(); sb.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>'; sb.disabled = false; }, 1500); });
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(a.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+        document.querySelectorAll('[data-tilt]').forEach(el => { el.addEventListener('mousemove', e => { const r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, cx = r.width / 2, cy = r.height / 2; el.style.transform = `perspective(1000px) rotateX(${((y - cy) / cy) * -5}deg) rotateY(${((x - cx) / cx) * 5}deg) scale(1.02)`; }); el.addEventListener('mouseleave', () => { el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)'; }); });
+        window.addEventListener('scroll', () => { const s = window.scrollY; document.querySelectorAll('.blob').forEach((b, i) => { b.style.transform = `translateY(${s * 0.05 * (i + 1)}px)`; }); });
+        const ht = document.querySelector('.hero-title'); if (ht) { ht.style.opacity = '0'; ht.style.transform = 'translateY(30px)'; setTimeout(() => { ht.style.transition = 'opacity .8s ease, transform .8s ease'; ht.style.opacity = '1'; ht.style.transform = 'translateY(0)'; }, 300); }
+        const hs = document.querySelector('.hero-subtitle'); if (hs) { hs.style.opacity = '0'; hs.style.transform = 'translateY(20px)'; setTimeout(() => { hs.style.transition = 'opacity .8s ease, transform .8s ease'; hs.style.opacity = '1'; hs.style.transform = 'translateY(0)'; }, 600); }
+        document.querySelectorAll('.hero-buttons .btn').forEach((b, i) => { b.style.opacity = '0'; b.style.transform = 'translateY(20px)'; setTimeout(() => { b.style.transition = 'opacity .6s ease, transform .6s ease, background .4s ease, box-shadow .4s ease, border-color .4s ease'; b.style.opacity = '1'; b.style.transform = 'translateY(0)'; }, 800 + i * 200); });
+        const hb = document.querySelector('.hero-badge'); if (hb) { hb.style.opacity = '0'; hb.style.transform = 'translateY(15px)'; setTimeout(() => { hb.style.transition = 'opacity .6s ease, transform .6s ease'; hb.style.opacity = '1'; hb.style.transform = 'translateY(0)'; }, 100); }
+        document.querySelectorAll('.stat-item').forEach((s, i) => { s.style.opacity = '0'; s.style.transform = 'translateY(20px)'; setTimeout(() => { s.style.transition = 'opacity .6s ease, transform .6s ease, background .3s ease, border-color .3s ease, box-shadow .3s ease'; s.style.opacity = '1'; s.style.transform = 'translateY(0)'; }, 1200 + i * 150); });
+        const oc = document.querySelector('.orbit-container'); if (oc) { oc.style.opacity = '0'; oc.style.transform = 'scale(0.8)'; setTimeout(() => { oc.style.transition = 'opacity 1s ease, transform 1s ease'; oc.style.opacity = '1'; oc.style.transform = 'scale(1)'; }, 500); }
+        const fy = document.querySelector('.footer-bottom p'); if (fy) fy.innerHTML = fy.innerHTML.replace('2025', new Date().getFullYear());
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && navLinksEl.classList.contains('active')) { hamburger.classList.remove('active'); navLinksEl.classList.remove('active'); } });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Vectora Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#0a0a1a;--text:#fff;--text-muted:#8892b0;--primary:#6C63FF;--secondary:#FF6B9D;--accent:#00D4AA;--glass-bg:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.1);--card-radius:20px}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+        .blob{position:fixed;border-radius:50%;filter:blur(100px);opacity:.4;z-index:-1}
+        .blob-1{width:600px;height:600px;background:#6C63FF;top:-200px;left:-200px}
+        .blob-2{width:500px;height:500px;background:#FF6B9D;top:50%;right:-200px}
+        .blob-3{width:400px;height:400px;background:#00D4AA;bottom:-100px;left:30%}
+        nav{position:fixed;top:0;width:100%;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,10,26,.8);border-bottom:1px solid var(--glass-border)}
+        .nav-logo{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        nav a{color:var(--text-muted);text-decoration:none;font-size:.9rem;transition:color .3s}
+        nav a:hover{color:var(--text)}
+        .nav-links{display:flex;gap:24px;align-items:center}
+        .back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);text-decoration:none;font-size:.9rem;padding:10px 20px;border-radius:12px;border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(10px);transition:all .3s}
+        .back-btn:hover{background:rgba(255,255,255,.1);color:var(--text);transform:translateY(-2px)}
+        .page-hero{padding:160px 40px 80px;text-align:center;max-width:800px;margin:0 auto}
+        .page-hero h1{font-family:'Space Grotesk',sans-serif;font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px}
+        .page-hero p{color:var(--text-muted);font-size:1.1rem;line-height:1.8}
+        .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:30px;max-width:1200px;margin:0 auto;padding:0 40px 100px}
+        .blog-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--card-radius);overflow:hidden;backdrop-filter:blur(20px);transition:all .4s}
+        .blog-card:hover{transform:translateY(-8px);border-color:var(--primary)}
+        .blog-card-img{height:200px;position:relative;overflow:hidden}
+        .blog-card-img .tag{position:absolute;top:16px;left:16px;padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+        .blog-card-body{padding:24px}
+        .blog-card-body h3{font-size:1.2rem;font-weight:700;margin-bottom:10px}
+        .blog-card-body p{color:var(--text-muted);font-size:.9rem;line-height:1.7;margin-bottom:16px}
+        .blog-card-meta{display:flex;justify-content:space-between;align-items:center;color:var(--text-muted);font-size:.8rem}
+        .blog-card-meta i{margin-right:4px}
+        .coming-soon{text-align:center;padding:60px 20px;color:var(--text-muted)}
+        .coming-soon i{font-size:3rem;margin-bottom:16px;color:var(--primary)}
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <nav>
+        <div class="nav-logo">"^ Vectora</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#portfolio">Portfolio</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </nav>
+    <div class="page-hero">
+        <h1>Blog</h1>
+        <p>Insights, tips, and stories from the world of digital marketing, web development, and design. Stay updated with the latest trends.</p>
+    </div>
+    <div class="blog-grid">
+        <div class="blog-card">
+            <div class="blog-card-img" style="background:linear-gradient(135deg,#6C63FF,#FF6B9D)">
+                <span class="tag" style="background:rgba(255,255,255,.2);color:#fff">Marketing</span>
+            </div>
+            <div class="blog-card-body">
+                <h3>10 Digital Marketing Trends to Watch in 2026</h3>
+                <p>Discover the latest strategies that are reshaping how businesses connect with their audiences online.</p>
+                <div class="blog-card-meta"><span><i class="far fa-calendar"></i> Coming Soon</span><span><i class="far fa-clock"></i> 5 min read</span></div>
+            </div>
+        </div>
+        <div class="blog-card">
+            <div class="blog-card-img" style="background:linear-gradient(135deg,#00D4AA,#6C63FF)">
+                <span class="tag" style="background:rgba(255,255,255,.2);color:#fff">Web Dev</span>
+            </div>
+            <div class="blog-card-body">
+                <h3>Building Modern Websites with Liquid Glass Design</h3>
+                <p>Learn how to create stunning glassmorphism interfaces that captivate users and boost engagement.</p>
+                <div class="blog-card-meta"><span><i class="far fa-calendar"></i> Coming Soon</span><span><i class="far fa-clock"></i> 8 min read</span></div>
+            </div>
+        </div>
+        <div class="blog-card">
+            <div class="blog-card-img" style="background:linear-gradient(135deg,#FF6B9D,#FFB347)">
+                <span class="tag" style="background:rgba(255,255,255,.2);color:#fff">Social Media</span>
+            </div>
+            <div class="blog-card-body">
+                <h3>Social Media Growth Hacks for Small Businesses</h3>
+                <p>Practical tips to grow your brand presence across Instagram, TikTok, LinkedIn and more.</p>
+                <div class="blog-card-meta"><span><i class="far fa-calendar"></i> Coming Soon</span><span><i class="far fa-clock"></i> 6 min read</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="coming-soon">
+        <i class="fas fa-pen-nib"></i>
+        <h3>More articles coming soon!</h3>
+        <p>We're working on fresh content for you. Stay tuned.</p>
+    </div>
+</body>
+</html>
